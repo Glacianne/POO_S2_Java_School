@@ -12,6 +12,11 @@ class Person extends SchoolAir {
     public void whoAmI() {
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
 
 class Employee extends Person {
