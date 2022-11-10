@@ -2,7 +2,7 @@ package Semaine_3_java;
 
 import java.util.ArrayList;
 
-class Person extends SchoolAir {
+class Person extends School {
     protected String name;
 
     public Person(String name) {
@@ -90,13 +90,13 @@ class Grade {
 
     public void getPersonsByGrade() {
         System.out.println(String.format("Les professeurs de la classe de %s : ", this.name));
-        for (Teacher teacher : SchoolAir.getTeacherList()) {
+        for (Teacher teacher : School.getTeacherList()) {
             if (this.name.equals(teacher.grade.name)) {
                 System.out.println("- " + teacher.name + " professeur de " + teacher.lesson);
             }
         }
         System.out.println(String.format("Les élèves de la classe de %s : ", this.name));
-        for (Student student : SchoolAir.getStudentsList()) {
+        for (Student student : School.getStudentsList()) {
             if (this.name.equals(student.grade.name)) {
                 System.out.println("- " + student.name);
             }
@@ -114,43 +114,7 @@ class Mark {
 
 }
 
-class Student extends Person {
-    protected Grade grade;
-    ArrayList<Mark> marks = new ArrayList<>();
-
-    public Student(String name, Grade grade) {
-        super(name);
-        this.grade = grade;
-    }
-
-    public void whoAmI() {
-        System.out.print(String.format("Je m'appelle %s, je suis étudiant(e)", name));
-    }
-
-    public void addMark(Mark mark) {
-        marks.add(mark);
-    }
-
-    public ArrayList<Double> getAllMarks() {
-        ArrayList<Double> allMarks = new ArrayList<>();
-        for (Mark m : marks) {
-            allMarks.add(m.number);
-        }
-        return allMarks;
-    }
-
-    public Double getAverage() {
-        ArrayList<Double> allMarks = this.getAllMarks();
-        Double total = 0.00;
-        for (Double number : allMarks) {
-            total += number;
-        }
-        return Double.isNaN((total / marks.size())) ? 0.0 : total / marks.size();
-    }
-
-}
-
-public class SchoolAir {
+class School {
     public static ArrayList<Person> persons = new ArrayList<>();
 
     public Person getPersonByName(String name) {
@@ -191,10 +155,49 @@ public class SchoolAir {
         }
         return teachers;
     }
+}
 
+class Student extends Person {
+    protected Grade grade;
+    ArrayList<Mark> marks = new ArrayList<>();
+
+    public Student(String name, Grade grade) {
+        super(name);
+        this.grade = grade;
+    }
+
+    public void whoAmI() {
+        System.out.print(String.format("Je m'appelle %s, je suis étudiant(e)", name));
+    }
+
+    public void addMark(Mark mark) {
+        marks.add(mark);
+    }
+
+    public ArrayList<Double> getAllMarks() {
+        ArrayList<Double> allMarks = new ArrayList<>();
+        for (Mark m : marks) {
+            allMarks.add(m.number);
+        }
+        return allMarks;
+    }
+
+    public Double getAverage() {
+        ArrayList<Double> allMarks = this.getAllMarks();
+        Double total = 0.00;
+        for (Double number : allMarks) {
+            total += number;
+        }
+        return Double.isNaN((total / marks.size())) ? 0.0 : total / marks.size();
+    }
+
+}
+
+public class SchoolAir {
+    
     public static void main(String[] args) {
 
-        SchoolAir school1 = new SchoolAir();
+        School school1 = new School();
 
         Grade quatrieme = new Grade("quatrième");
         Grade cinquieme = new Grade("cinquième");
